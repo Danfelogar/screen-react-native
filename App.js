@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Dimensions } from 'react-native';//def rem para el screen
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+//containers
+import Begin from './src/screen/containers/begin/begin';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+// define REM depending on screen width
+const entireScreenWidth = Dimensions.get('window').width;
+
+// calc styles
+EStyleSheet.build({
+  $rem: entireScreenWidth / 300,
+  $colorPrimary: '#8400b2',
+  $colorSecondary: '#2edf6c',
+  $colorGrayLight: '#a0a0a0',
+  $colorLight: '#f2f2f2',
+  $colorGray: '#616161',
 });
+
+const BeginStackNavigator = createStackNavigator({
+  Begin: {
+    screen: Begin,
+    navigationOptions:{
+      headerShown: false,
+    },
+  }
+});
+
+const App =createSwitchNavigator({
+  BeginStackNavigator: BeginStackNavigator
+});
+
+export default createAppContainer(App);
