@@ -11,7 +11,8 @@ export default class Begin extends Component {
             loading:false,
             dataProducts:[],
             showModal:false,
-            propductSelected: null
+            propductSelected: null,
+            dataCategories:[],
         };
     }
 
@@ -39,6 +40,30 @@ export default class Begin extends Component {
         }
     }
 
+    getCategories = async() => {
+        this.setState({loading:true})
+        try {
+            let data = {
+                method: 'GET',
+            }
+            let response= await asyncSendApis('/api-categorias/categorias/', data);
+            if (response.status) {
+                console.log(response);
+                this.setState({
+                    dataCategories:response,
+                    loading:false
+                })
+                console.log(this.state.dataCategories)
+            } else {
+                console.log( "ErrorData ==> ", response);
+                this.setState({loading: false})
+            }
+        } catch (error) {
+            console.log( "CatchError ==> ", error);
+            this.setState({loading: false})
+        }
+    }
+
     handleShowModal = () => {
         this.setState({ showModal: !this.state.showModal })
     }
@@ -54,6 +79,7 @@ export default class Begin extends Component {
 
     componentDidMount () {
         this.getProducts()
+        this.getCategories()
     }
 
     render(){
@@ -63,6 +89,7 @@ export default class Begin extends Component {
             propductSelected={this.state.propductSelected}
             loading={this.state.loading}
             showModal={this.state.showModal}
+            dataCategories={this.state.dataCategories}
 
             handleShowModal={this.handleShowModal}
             handleSetSelectedProduct={this.handleSetSelectedProduct}
