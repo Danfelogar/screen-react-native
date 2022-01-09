@@ -8,11 +8,11 @@ export default class Begin extends Component {
     constructor(props) {
         super(props);    
         this.state = {
-            loading:false,
-            dataProducts:[],
+            loading:true,
+            dataProducts:[{},{},{},{},{},{}],
             showModal:false,
             propductSelected: null,
-            dataCategories:[],
+            dataCategories:[{},{},{},{},{},{}],
         };
     }
 
@@ -29,7 +29,6 @@ export default class Begin extends Component {
                     dataProducts:response,
                     loading:false
                 })
-                console.log(this.state.dataProducts)
             } else {
                 console.log( "ErrorData ==> ", response);
                 this.setState({loading: false})
@@ -41,7 +40,7 @@ export default class Begin extends Component {
     }
 
     getCategories = async() => {
-        this.setState({loading:true})
+        // this.setState({loading:true})
         try {
             let data = {
                 method: 'GET',
@@ -51,9 +50,8 @@ export default class Begin extends Component {
                 console.log(response);
                 this.setState({
                     dataCategories:response,
-                    loading:false
+                    // loading:false
                 })
-                console.log(this.state.dataCategories)
             } else {
                 console.log( "ErrorData ==> ", response);
                 this.setState({loading: false})
@@ -64,22 +62,37 @@ export default class Begin extends Component {
         }
     }
 
-    handleShowModal = () => {
-        this.setState({ showModal: !this.state.showModal })
-    }
+    // handleShowModal = () => {
+    //     this.setState({ showModal: !this.state.showModal })
+    // }
 
     handleHidenModal = () => {
-        this.setState({ showModal: !this.state.showModal })
-        this.setState({propductSelected: null})    
+        this.setState({ showModal: !this.state.showModal, propductSelected: null })  
     }
 
     handleSetSelectedProduct = (product) =>{
-        this.setState({propductSelected: product})
+        this.setState({propductSelected: product, showModal: !this.state.showModal })
     }
 
-    componentDidMount () {
-        this.getProducts()
-        this.getCategories()
+    handleGetMoreDetails = (itemId) =>{
+        console.log(itemId);
+        this.props.navigation.navigate('Details',{productId: itemId})
+    }
+
+    componentDidMount() {
+        //Here is the Trick
+        const { navigation } = this.props;
+        //Adding an event listner om focus
+        //So whenever the screen will have focus it will set the state to zero
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.getProducts();
+            this.getCategories();
+        });
+    }
+
+    componentWillUnmount() {
+        // Remove the event listener before removing the screen from the stack
+        this.focusListener.remove();
     }
 
     render(){
@@ -91,9 +104,10 @@ export default class Begin extends Component {
             showModal={this.state.showModal}
             dataCategories={this.state.dataCategories}
 
-            handleShowModal={this.handleShowModal}
+            // handleShowModal={this.handleShowModal}
             handleSetSelectedProduct={this.handleSetSelectedProduct}
             handleHidenModal={this.handleHidenModal}
+            handleGetMoreDetails={this.handleGetMoreDetails}
             ></BeginTemplate>
         )
     }

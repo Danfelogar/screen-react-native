@@ -6,6 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 //containers
 import Begin from './src/screen/containers/begin/begin';
+import Details from './src/screen/containers/details/details';
 
 // define REM depending on screen width
 const entireScreenWidth = Dimensions.get('window').width;
@@ -26,7 +27,13 @@ const BeginStackNavigator = createStackNavigator({
     navigationOptions:{
       headerShown: false,
     },
-  }
+  },
+  Details: {
+    screen: Details,
+    navigationOptions:{
+      headerShown: true,
+    },
+  },
 });
 
 const App =createSwitchNavigator({
