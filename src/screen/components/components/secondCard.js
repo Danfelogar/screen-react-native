@@ -5,7 +5,7 @@ import {sG} from '../../components/general/styles';
 export const SecondCard = props =>{
 
     return(
-        <TouchableOpacity onPress={()=>{props.handleGetMoreDetails(props.itemId)}} style={[sG.ai_center,sG.jc_center,sG.row_45,sG.h_90]}>
+        <TouchableOpacity onPress={()=>{props.handleGetMoreDetails(props.itemId)}} style={[sG.ai_center,sG.jc_center,sG.row_45,sG.bg_white]}>
             {
                 props.loading
                 ?

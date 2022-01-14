@@ -6,7 +6,7 @@ import { BeginTemplate } from '../../templates/begin/begin';
 
 export default class Begin extends Component {
     constructor(props) {
-        super(props);    
+        super(props);
         this.state = {
             loading:true,
             dataProducts:[{},{},{},{},{},{}],
@@ -24,12 +24,15 @@ export default class Begin extends Component {
             }
             let response= await asyncSendApis('/api-referencias/referenciassearch/', data);
             if (response.status) {
-                console.log(response);
+                // console.log(response);
                 this.setState({
                     dataProducts:response,
                     loading:false
                 })
+                //pasa consumir una api que depende de otra
+                // this.getCategories(response.id)
             } else {
+                //alert(response)
                 console.log( "ErrorData ==> ", response);
                 this.setState({loading: false})
             }
@@ -67,7 +70,7 @@ export default class Begin extends Component {
     // }
 
     handleHidenModal = () => {
-        this.setState({ showModal: !this.state.showModal, propductSelected: null })  
+        this.setState({ showModal: !this.state.showModal, propductSelected: null })
     }
 
     handleSetSelectedProduct = (product) =>{
@@ -75,7 +78,7 @@ export default class Begin extends Component {
     }
 
     handleGetMoreDetails = (itemId) =>{
-        console.log(itemId);
+        // console.log(itemId);
         this.props.navigation.navigate('Details',{productId: itemId})
     }
 

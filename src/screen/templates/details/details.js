@@ -26,7 +26,7 @@ export const DetailsTemplates = props =>{
                                 <Text style={[sG.h8,sG.text_gray_light ]}>Cota, Cundinamarca{"\n"}</Text>
                                 <Text style={[sG.h8,sG.text_gray_light ]}>{props.description}{"\n"}{"\n"}{"\n"}</Text>
                                 <Text style={[sG.h5,sG.text_black, sG.bold ]}>${props.price} <Text style={[sG.h8,sG.text_gray_light ]}>Paquete</Text> <Text style={[sG.h7,sG.text_black ]}>x6 Uni.</Text></Text>
-                            </View>                    
+                            </View>
                         </View>
                     </View>
                     <View style={[sG.w_100,sG.h_20,sG.jc_start,sG.ai_center]}>
@@ -54,9 +54,9 @@ export const DetailsTemplates = props =>{
                                     </View>
                                     <View style={[sG.w_100,sG.h_35,sG.ai_center,sG.jc_start]}>
                                         <Text style={[sG.h6, sG.text_center,sG.text_primary,sG.bold ]}>$ Pesos</Text>
-                                    </View>                        
+                                    </View>
                                 </View>
-                            </View>    
+                            </View>
                         </View>
                     </View>
                 </View>

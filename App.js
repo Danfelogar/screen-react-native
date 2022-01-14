@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dimensions } from 'react-native';//def rem para el screen
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -24,9 +23,9 @@ EStyleSheet.build({
 const BeginStackNavigator = createStackNavigator({
   Begin: {
     screen: Begin,
-    navigationOptions:{
-      headerShown: false,
-    },
+    // navigationOptions:{
+    //   headerShown: false,
+    // },
   },
   Details: {
     screen: Details,

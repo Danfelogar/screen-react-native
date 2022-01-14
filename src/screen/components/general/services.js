@@ -31,7 +31,7 @@ export const asyncSendApis = async (url, data) =>{
         let headers=Object.assign(data_send.headers,  {'Authorization': 'Token '+ data.token});
         data_send= Object.assign(data_send, { headers: headers });
       }
-      console.log(data_send)
+      // console.log(data_send)
       let response = await fetch(ConstantClass.webserviceName+url, data_send);
       let json = await response.json();
       json['status']=response.ok;

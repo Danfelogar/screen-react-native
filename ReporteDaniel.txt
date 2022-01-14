@@ -1,0 +1,685 @@
+//App
+
+import { Dimensions } from 'react-native';//def rem para el screen
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+//containers
+import Begin from './src/screen/containers/begin/begin';
+import Details from './src/screen/containers/details/details';
+
+// define REM depending on screen width
+const entireScreenWidth = Dimensions.get('window').width;
+
+// calc styles
+EStyleSheet.build({
+  $rem: entireScreenWidth / 300,
+  $colorPrimary: '#8400b2',
+  $colorSecondary: '#2edf6c',
+  $colorGrayLight: '#a0a0a0',
+  $colorLight: '#f2f2f2',
+  $colorGray: '#616161',
+});
+
+const BeginStackNavigator = createStackNavigator({
+  Begin: {
+    screen: Begin,
+    // navigationOptions:{
+    //   headerShown: false,
+    // },
+  },
+  Details: {
+    screen: Details,
+    navigationOptions:{
+      headerShown: true,
+    },
+  },
+});
+
+const App =createSwitchNavigator({
+  BeginStackNavigator: BeginStackNavigator
+});
+
+export default createAppContainer(App);
+
+
+//src/screen/components/components
+
+//firstCard
+
+import {View,TouchableOpacity,ImageBackground,ActivityIndicator} from 'react-native';
+
+import {sG} from '../../components/general/styles';
+
+export const FirstCard = props =>{
+
+    return(
+        <TouchableOpacity onPress={()=>{props.handleGetMoreDetails(props.itemId)}} style={[sG.ai_center,sG.jc_center,sG.row_80]}>
+            {
+                props.loading
+                ?
+                <View style={[sG.w_100, sG.h_10, sG.chrow, sG.ai_center, sG.jc_center]}>
+                    <ActivityIndicator size="large" color="#2edf6c"/>
+                </View>
+                :
+                <View style={[sG.h_90,sG.w_90,sG.jc_center,sG.ai_center]}>
+                    <View style={[sG.h_100,sG.w_100,sG.bg_white,sG.broundedmax,sG.card_shadow]}>
+                        <ImageBackground resizeMode='cover' source={{uri:props.image}} style={[sG.w_100,sG.h_100]} ></ImageBackground>
+                    </View>
+                </View>
+            }
+        </TouchableOpacity>
+    )
+}
+
+//secondCard
+
+import {View,Text,TouchableOpacity,ImageBackground,ActivityIndicator} from 'react-native';
+
+import {sG} from '../../components/general/styles';
+
+export const SecondCard = props =>{
+
+    return(
+        <TouchableOpacity onPress={()=>{props.handleGetMoreDetails(props.itemId)}} style={[sG.ai_center,sG.jc_center,sG.row_45,sG.bg_white]}>
+            {
+                props.loading
+                ?
+                <View style={[sG.w_100, sG.h_10, sG.chrow, sG.ai_center, sG.jc_center]}>
+                    <ActivityIndicator size="large" color="#2edf6c"/>
+                </View>
+                :
+                <View style={[sG.ai_center,sG.jc_center,sG.h_90,sG.w_95,sG.bg_white,sG.card_shadow,sG.brounded]}>
+                    <View style={[sG.ai_center,sG.jc_center,sG.chrow,sG.h_100,sG.w_95]}>
+                        <View style={[sG.h_100,sG.w_30,sG.ai_center,sG.jc_center]}>
+                            <View style={[sG.h_80,sG.w_90,sG.brounded]}>
+                                <ImageBackground resizeMode='cover' source={{uri:props.image}} style={[sG.w_100,sG.h_100]} ></ImageBackground>
+                            </View>
+                        </View>
+                        <View style={[sG.h_100,sG.w_35,sG.ai_center,sG.jc_center]}>
+                            <View style={[sG.h_80,sG.w_95,sG.ai_center,sG.jc_start]}>
+                                <View style={[sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h8,sG.text_black, sG.bold]}>{props.name}</Text>
+                                </View>
+                                <View style={[sG.jc_center,sG.h_55,sG.w_100]}>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>Dia de entrega</Text>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>Quien recibe</Text>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>Direccion de entrega</Text>
+                                </View>
+                                <View style={[sG.h_25,sG.w_100]}>
+                                    <Text style={[sG.h8,sG.text_black, sG.bold]}>Entrega #</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[sG.h_100,sG.w_35,sG.ai_center,sG.jc_center]}>
+                            <View style={[sG.h_80,sG.w_95,sG.ai_center,sG.jc_start]}>
+                                <View style={[sG.ai_end,sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h8,sG.text_primary, sG.bold]}>#{props.itemId}</Text>
+                                </View>
+                                <View style={[sG.ai_end,sG.jc_center,sG.h_55,sG.w_100]}>
+                                    <Text style={[sG.h9,sG.text_black,sG.bold]}>7 dia del  mes</Text>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>Natalia Hernandez</Text>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>{props.direction}</Text>
+                                </View>
+                                <View style={[sG.ai_end,sG.h_25,sG.w_100]}>
+                                    <Text style={[sG.h8,sG.text_primary, sG.bold]}>4 de 9</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            }
+        </TouchableOpacity>
+    )
+}
+
+//thirdCard
+
+import {View,TouchableOpacity,ImageBackground,ActivityIndicator} from 'react-native';
+
+import {sG} from '../../components/general/styles';
+
+export const ThirdCard = props =>{
+
+    return(
+        <TouchableOpacity onPress={()=>{props.handleGetMoreDetails(props.itemId)}} style={[sG.ai_center,sG.jc_center,sG.row_35,sG.h_60]}>
+            {
+                props.loading
+                ?
+                <View style={[sG.w_100, sG.h_10, sG.chrow, sG.ai_center, sG.jc_center]}>
+                    <ActivityIndicator size="large" color="#2edf6c"/>
+                </View>
+                :
+                <View style={[sG.h_100,sG.w_90,sG.bg_white,sG.card_shadow,sG.broundedmax]}>
+                    <ImageBackground resizeMode='cover' source={props.image ? {uri:props.image} : {uri:'https://programacion.net/files/article/20160819020822_image-not-found.png'}} style={[sG.w_100,sG.h_100]} ></ImageBackground>
+                </View>
+            }
+        </TouchableOpacity>
+    )
+}
+
+//fourCard
+
+import {View,Text,TouchableOpacity,ImageBackground,ActivityIndicator} from 'react-native';
+
+import {sG} from '../../components/general/styles';
+
+export const FourCard = props =>{
+
+    return(
+        <TouchableOpacity onPress={()=>{props.handleGetMoreDetails(props.itemId)}} style={[sG.ai_center,sG.jc_center,sG.row_45,sG.h_90]}>
+            {
+                props.loading
+                ?
+                <View style={[sG.w_100, sG.h_10, sG.chrow, sG.ai_center, sG.jc_center]}>
+                    <ActivityIndicator size="large" color="#2edf6c"/>
+                </View>
+                :
+                <View style={[sG.ai_center,sG.jc_center,sG.h_90,sG.w_95,sG.bg_white,sG.card_shadow,sG.brounded]}>
+                    <View style={[sG.chrow,sG.h_80, sG.w_95, sG.ai_center, sG.jc_center]} >
+                        <View style={[sG.h_100,sG.w_35,sG.ai_center,sG.jc_center]}>
+                            <View style={[sG.h_90,sG.w_90,sG.brounded]}>
+                                <ImageBackground resizeMode='cover' source={{uri:props.image}} style={[sG.w_100,sG.h_100]} ></ImageBackground>
+                            </View>
+                        </View>
+                        <View style={[sG.h_100,sG.w_65]}>
+                            <View style={[sG.h_95,sG.w_95,sG.ai_center,sG.jc_start]}>
+                                <View style={[sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h8,sG.text_black, sG.bold]}>{props.name1}</Text>
+                                </View>
+                                <View style={[sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>{props.name2}</Text>
+                                </View>
+                                <View style={[sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h9,sG.text_secondary]}>{props.ref1}/{props.ref2}</Text>
+                                </View>
+                                <View style={[sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h9,sG.text_gray_light]}>Cota. Cundinamarca</Text>
+                                </View>
+                                <View style={[sG.h_20,sG.w_100]}>
+                                    <Text style={[sG.h8,sG.text_black, sG.bold ]}>${props.total} <Text style={[sG.h9,sG.text_gray_light ]}>Paquete</Text> <Text style={[sG.h8,sG.text_black ]}>x6 Uni.</Text></Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            }
+        </TouchableOpacity>
+    )
+}
+
+//src/screen/components/general
+
+//config
+
+export class ConstantClass {
+    //producción
+    static webserviceName = 'http://78.46.69.39:8007';
+    //desarrollo
+    // static webserviceName = 'http://78.46.69.39:8054';
+}
+
+//services
+
+import {ConstantClass } from '../general/config';
+
+export const asyncSendApis = async (url, data) =>{
+      let method= 'GET';
+      let data_send = {
+        method: method,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+      if(data.credentials){
+        data_send= Object.assign(data_send, { credentials: data.credentials });
+      }
+      if(data.method){
+        data_send= Object.assign(data_send, { method: data.method });
+      }
+      if(data.body){
+        if(data.form){
+          let headers=Object.assign(data_send.headers,  {'Content-Type': data.form});
+          data_send= Object.assign(data_send, { headers: headers });
+          data_send.body=new FormData();
+          for (let key in data.body) {
+            data_send.body.append(key, data.body[key]);
+          }
+        }else{
+          data_send= Object.assign(data_send, { body: data.body });
+        }
+      }
+      if(data.token) {
+        let headers=Object.assign(data_send.headers,  {'Authorization': 'Token '+ data.token});
+        data_send= Object.assign(data_send, { headers: headers });
+      }
+      // console.log(data_send)
+      let response = await fetch(ConstantClass.webserviceName+url, data_send);
+      let json = await response.json();
+      json['status']=response.ok;
+      return json;
+  }
+
+//styles
+
+....
+
+//src/screen/containers
+
+//begin/begin
+
+import React, { Component } from 'react';
+import { AsyncStorage} from "react-native";//nos trae o guarda elementos de la api al cache
+import {asyncSendApis} from '../../components/general/services';//nos ayuda a consumir apis
+
+import { BeginTemplate } from '../../templates/begin/begin';
+
+export default class Begin extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading:true,
+            dataProducts:[{},{},{},{},{},{}],
+            showModal:false,
+            propductSelected: null,
+            dataCategories:[{},{},{},{},{},{}],
+        };
+    }
+
+    getProducts = async() => {
+        this.setState({loading:true})
+        try {
+            let data = {
+                method: 'GET',
+            }
+            let response= await asyncSendApis('/api-referencias/referenciassearch/', data);
+            if (response.status) {
+                // console.log(response);
+                this.setState({
+                    dataProducts:response,
+                    loading:false
+                })
+                //pasa consumir una api que depende de otra
+                // this.getCategories(response.id)
+            } else {
+                //alert(response)
+                console.log( "ErrorData ==> ", response);
+                this.setState({loading: false})
+            }
+        } catch (error) {
+            console.log( "CatchError ==> ", error);
+            this.setState({loading: false})
+        }
+    }
+
+    getCategories = async() => {
+        // this.setState({loading:true})
+        try {
+            let data = {
+                method: 'GET',
+            }
+            let response= await asyncSendApis('/api-categorias/categorias/', data);
+            if (response.status) {
+                console.log(response);
+                this.setState({
+                    dataCategories:response,
+                    // loading:false
+                })
+            } else {
+                console.log( "ErrorData ==> ", response);
+                this.setState({loading: false})
+            }
+        } catch (error) {
+            console.log( "CatchError ==> ", error);
+            this.setState({loading: false})
+        }
+    }
+
+    // handleShowModal = () => {
+    //     this.setState({ showModal: !this.state.showModal })
+    // }
+
+    handleHidenModal = () => {
+        this.setState({ showModal: !this.state.showModal, propductSelected: null })
+    }
+
+    handleSetSelectedProduct = (product) =>{
+        this.setState({propductSelected: product, showModal: !this.state.showModal })
+    }
+
+    handleGetMoreDetails = (itemId) =>{
+        // console.log(itemId);
+        this.props.navigation.navigate('Details',{productId: itemId})
+    }
+
+    componentDidMount() {
+        //Here is the Trick
+        const { navigation } = this.props;
+        //Adding an event listner om focus
+        //So whenever the screen will have focus it will set the state to zero
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.getProducts();
+            this.getCategories();
+        });
+    }
+
+    componentWillUnmount() {
+        // Remove the event listener before removing the screen from the stack
+        this.focusListener.remove();
+    }
+
+    render(){
+        return(
+            <BeginTemplate
+            dataProducts={this.state.dataProducts}
+            propductSelected={this.state.propductSelected}
+            loading={this.state.loading}
+            showModal={this.state.showModal}
+            dataCategories={this.state.dataCategories}
+
+            // handleShowModal={this.handleShowModal}
+            handleSetSelectedProduct={this.handleSetSelectedProduct}
+            handleHidenModal={this.handleHidenModal}
+            handleGetMoreDetails={this.handleGetMoreDetails}
+            ></BeginTemplate>
+        )
+    }
+}
+
+//details/details
+
+import React, { Component } from 'react';
+import { AsyncStorage} from "react-native";//nos trae o guarda elementos de la api al cache
+import {asyncSendApis} from '../../components/general/services';//nos ayuda a consumir apis
+
+
+import { DetailsTemplates } from "../../templates/details/details";
+
+
+
+
+export default class Details extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading:true,
+            productId:'',
+            id:'',
+            name:'',
+            price:'',
+            mainName:'',
+            description:'',
+            image:'',
+            subId:'',
+            subName:'',
+            shipping:'',
+            total:'',
+        };
+    }
+
+    getDetails = async() => {
+        //capturar id
+        const productId = this.props.navigation.getParam('productId');
+        // this.setState({loading:true})
+        try {
+            let data = {
+                method: 'GET',
+            }
+            let response= await asyncSendApis('/api-referencias/referenciassearch/'+productId+'/', data);
+            if (response.status) {
+                // console.log(response);
+                this.setState({
+                    id:productId,
+                    name:response.nombre,
+                    price:response.precio,
+                    mainName:response.referencia.nombre,
+                    description:response.referencia.descripcion,
+                    image:response.referencia.foto,
+                    subId:response.referencia.subcategoria.categoria,
+                    subName:response.referencia.subcategoria.nombre,
+                    shipping:response.referencia.empresario.envio,
+                    total:response.total,
+                    loading:false
+                })
+            } else {
+                console.log( "ErrorData ==> ", response);
+                this.setState({loading: false})
+            }
+        } catch (error) {
+            console.log( "CatchError ==> ", error);
+            this.setState({loading: false})
+        }
+    }
+
+    // getDataNavegation = () =>{
+    //     const productId = this.props.navigation.getParam('productId');
+    //     console.log(productId)
+    //     this.getDetails(productId)
+    // }
+
+    componentDidMount(){
+        this.getDetails();
+        // this.getDetails();
+    }
+
+    render(){
+        return(
+            <DetailsTemplates
+            loading={this.state.loading}
+            id={this.state.id}
+            name={this.state.name}
+            price={this.state.price}
+            mainName={this.state.mainName}
+            description={this.state.description}
+            image={this.state.image}
+            subId={this.state.subId}
+            subName={this.state.subName}
+            shipping={this.state.shipping}
+            total={this.state.total}
+            >
+            </DetailsTemplates>
+        )
+    }
+}
+
+//src/screen/templates
+
+//begin/begin
+
+import React, { Component } from 'react';
+import {View, Text, ImageBackground, ScrollView, TouchableOpacity, Modal, ActivityIndicator} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+import {sG} from '../../components/general/styles';
+
+//components
+import { FirstCard } from '../../components/components/firstCard';
+import { SecondCard } from '../../components/components/secondCard';
+import { ThirdCard } from '../../components/components/thirdCard';
+import { FourCard } from '../../components/components/fourCard';
+
+export const BeginTemplate = props =>{
+
+    if(props.loading){
+        return(
+            <View style={[sG.container, sG.bg_light]}>
+                <View style={[sG.w_100,sG.h_100,sG.ai_center,sG.jc_center]}> 
+                    <ActivityIndicator size="large" color="#2edf6c"/>
+                </View>
+            </View>
+        )
+    }
+
+    return(
+        <View style={[sG.container, sG.bg_light]}>
+                <View style={[sG.h_100,sG.w_100,sG.ai_center,sG.jc_center]}>
+                    <View style={[sG.h_100,sG.w_95,sG.ai_start,sG.jc_center]}>
+                        <ScrollView>
+                            <View style={[sG.row_20,sG.w_100,sG.jc_start]}>
+                                <View style={[sG.h_70,sG.w_100]}>
+                                    <Text style={[sG.h5,sG.text_primary]}>Top de tus suscripciones</Text>
+                                    <Text style={[sG.h8,sG.text_gray_light]}>Llevar el control de tus ingresos es facil</Text>
+                                </View>
+                            </View>
+                            <View style={[sG.row_60,sG.w_100,sG.jc_start]}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                    {
+                                        props.dataProducts.map((item)=>(
+                                            <View style={[sG.ai_center,sG.jc_center,sG.h_90]}>
+                                                {
+                                                    <FirstCard
+                                                    loading={props.loading}
+                                                    image={item.referencia.foto}
+                                                    itemId={item.id}
+                                                    handleGetMoreDetails={props.handleGetMoreDetails}
+                                                    />
+                                                }
+                                            </View>
+                                        ))
+                                    }
+                                </ScrollView>
+                            </View>
+                            <View style={[sG.row_20,sG.w_100,sG.jc_start]}>
+                                <View style={[sG.h_70,sG.w_100]}>
+                                    <Text style={[sG.h5,sG.text_primary]}>Tus Proximas entregas</Text>
+                                    <Text style={[sG.h8,sG.text_gray_light]}>Ser la responsable con tus  envios es  clavepara crecer</Text>
+                                </View>
+                            </View>
+                            <View style={[sG.row_45,sG.w_100,sG.jc_start]}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                    {
+                                        props.dataProducts.map((item)=>(
+                                            <View key={item.id} style={[sG.ai_center,sG.jc_center,sG.h_90]}>
+                                                <SecondCard
+                                                loading={props.loading}
+                                                image={item.referencia.foto}
+                                                name={item.referencia.nombre.slice(0,10)+'...'}
+                                                direction={item.referencia.empresario.direccion.slice(0,19)+'...'}
+                                                itemId={item.id}
+                                                handleGetMoreDetails={props.handleGetMoreDetails}
+                                                />
+                                            </View>
+                                        ))
+                                    }
+                                </ScrollView>
+                            </View>
+                            <View style={[sG.row_15,sG.w_100,sG.jc_start]}>
+                                <View style={[sG.h_70,sG.w_100]}>
+                                    <Text style={[sG.h6,sG.text_primary]}>Busca tus productos  por categorias</Text>
+                                </View>
+                            </View>
+                            <View style={[sG.row_20,sG.w_100,sG.jc_start]}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                    {
+                                        props.dataCategories.map((item)=>(
+                                            <ThirdCard
+                                            loading={props.loading}
+                                            image={item.imagen}
+                                            />
+                                        ))
+                                    }
+                                </ScrollView>
+                            </View>
+                            <View style={[sG.row_45,sG.w_100,sG.jc_start]}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                    {
+                                        props.dataProducts.map((item)=>(
+                                            <FourCard
+                                            loading={props.loading}
+                                            image={item.referencia.foto}
+                                            name1={item.referencia.nombre}
+                                            name2={item.nombre}
+                                            ref1={item.referencia.subcategoria.nombre}
+                                            ref2={item.referencia.subcategoria.categoria}
+                                            total={item.total}
+                                            itemId={item.id}
+                                            handleGetMoreDetails={props.handleGetMoreDetails}
+                                            />
+                                        ))
+                                    }
+                                </ScrollView>
+                            </View>
+                            <View style={[sG.row_70,sG.w_95,sG.ai_center,sG.jc_center]}>
+                                <View style={[sG.ai_center,sG.jc_center,sG.h_98,sG.w_100]}>
+                                    <View style={[sG.ai_center,sG.jc_center,sG.h_95,sG.w_95,sG.brounded,sG.card_shadow]}>
+                                        <ImageBackground resizeMode='cover' source={{uri:'https://ichef.bbci.co.uk/news/640/cpsprodpb/1400C/production/_93723918_thinkstockphotos-627042504.jpg'}} style={[sG.w_100,sG.h_100]} ></ImageBackground>
+                                    </View>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </View>
+                </View>
+        </View>
+    )
+}
+
+//details/details
+
+import {View, Text, ImageBackground,ActivityIndicator} from 'react-native';
+
+import {sG} from '../../components/general/styles';
+
+export const DetailsTemplates = props =>{
+    return(
+        <View style={[sG.container, sG.bg_light]}>
+            { 
+                props.loading
+                ?
+                <View style={[sG.w_100, sG.h_10, sG.chrow, sG.ai_center, sG.jc_center]}>
+                    <ActivityIndicator size="large" color="#2edf6c"/>
+                </View>
+                :
+                <View>
+
+                    <View style={[sG.w_100, sG.h_35]}>
+                        <ImageBackground resizeMode='cover' source={{uri:props.image}} style={[sG.w_100,sG.h_100]} ></ImageBackground>
+                    </View>
+                    <View style={[sG.w_100,sG.h_45,sG.jc_center,sG.ai_center]}>
+                        <View style={[sG.bg_white,sG.card_shadow,sG.w_90,sG.h_90,sG.jc_center,sG.ai_center,sG.brounded]}>
+                            <View style={[sG.w_90,sG.h_90]}>
+                                <Text style={[sG.h5,sG.text_black, sG.bold ]}>{props.mainName}</Text>
+                                <Text style={[sG.h7,sG.text_gray_light ]}>{props.name}</Text>
+                                <Text style={[sG.h7,sG.text_secondary ]}>Alimentos / {props.subId} / {props.subName}</Text>
+                                <Text style={[sG.h8,sG.text_gray_light ]}>Cota, Cundinamarca{"\n"}</Text>
+                                <Text style={[sG.h8,sG.text_gray_light ]}>{props.description}{"\n"}{"\n"}{"\n"}</Text>
+                                <Text style={[sG.h5,sG.text_black, sG.bold ]}>${props.price} <Text style={[sG.h8,sG.text_gray_light ]}>Paquete</Text> <Text style={[sG.h7,sG.text_black ]}>x6 Uni.</Text></Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[sG.w_100,sG.h_20,sG.jc_start,sG.ai_center]}>
+                        <View style={[sG.chrow,sG.w_90,sG.h_90]}>
+                            <View style={[sG.w_50, sG.h_100, sG.jc_start, sG.ai_start]}>
+                                <View style={[sG.bg_white,sG.w_95,sG.h_95,sG.jc_center,sG.ai_center,sG.brounded,sG.card_shadow]}>
+                                    <View style={[sG.w_100,sG.h_25,sG.ai_center,sG.jc_end]}>
+                                        <Text style={[sG.h8,sG.text_black ]}>Has realizado</Text>
+                                    </View>
+                                    <View style={[sG.w_100,sG.h_45,sG.ai_center,sG.jc_center]}>
+                                        <Text style={[sG.h1,sG.text_primary, sG.bold ]}>{props.shipping}</Text>
+                                    </View>
+                                    <View style={[sG.w_100,sG.h_35,sG.ai_center,sG.jc_start]}>
+                                    <Text style={[sG.h5,sG.text_primary,sG.bold ]}>Entregas</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={[sG.w_50, sG.h_100, sG.jc_start, sG.ai_end]}>
+                                <View style={[sG.bg_white,sG.w_95,sG.h_95,sG.jc_center,sG.ai_center,sG.brounded,sG.card_shadow]}>
+                                    <View style={[sG.w_100,sG.h_25,sG.ai_center,sG.jc_end]}>
+                                        <Text style={[sG.h8, sG.text_center,sG.text_black ]}>Para un total de:</Text>
+                                    </View>
+                                    <View style={[sG.w_100,sG.h_45,sG.ai_center,sG.jc_center]}>
+                                        <Text style={[sG.h1, sG.text_center,sG.text_black, sG.bold ]}>{props.total}.<Text style={[sG.h3, sG.text_center,sG.text_black, sG.bold ]}>000</Text></Text>
+                                    </View>
+                                    <View style={[sG.w_100,sG.h_35,sG.ai_center,sG.jc_start]}>
+                                        <Text style={[sG.h6, sG.text_center,sG.text_primary,sG.bold ]}>$ Pesos</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            }
+        </View>
+    )
+}

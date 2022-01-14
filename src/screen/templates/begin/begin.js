@@ -103,7 +103,7 @@ export const BeginTemplate = props =>{
                                             <Text style={[sG.h4,sG.text_gray_light]}>{props.propductSelected?.referencia.nombre}</Text>
                                         </View>
                                         <View style={[sG.ai_center,sG.jc_end,sG.h_60,sG.w_100]}>
-                                            <TouchableOpacity 
+                                            <TouchableOpacity
                                             onPress={props.handleHidenModal}
                                             style={[sG.ai_center,sG.jc_center,sG.h_20,sG.w_100,sG.bg_secondary,sG.card_shadow,sG.brounded]}>
                                                 <Text style={[sG.h5,sG.text_white,sG.text_vcenter]}>Cerrar</Text>
@@ -118,8 +118,8 @@ export const BeginTemplate = props =>{
 
                 {/* tarea 3 */}
 
-                <View style={[sG.h_100,sG.w_100,sG.ai_end,sG.jc_center]}>
-                    <View style={[sG.h_90,sG.w_95,sG.ai_start,sG.jc_center]}>
+                <View style={[sG.h_100,sG.w_100,sG.ai_center,sG.jc_center]}>
+                    <View style={[sG.h_100,sG.w_95,sG.ai_start,sG.jc_center]}>
                         <ScrollView>
                             <View style={[sG.row_20,sG.w_100,sG.jc_start]}>
                                 <View style={[sG.h_70,sG.w_100]}>
@@ -131,7 +131,7 @@ export const BeginTemplate = props =>{
                                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                     {
                                         props.dataProducts.map((item)=>(
-                                            <View style={[sG.ai_center,sG.jc_center,sG.row_80,sG.h_90]}>
+                                            <View style={[sG.ai_center,sG.jc_center,sG.h_90]}>
                                                 {
                                                     <FirstCard
                                                     loading={props.loading}
@@ -155,7 +155,7 @@ export const BeginTemplate = props =>{
                                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                     {
                                         props.dataProducts.map((item)=>(
-                                            <View key={item.id} style={[sG.ai_center,sG.jc_center,sG.row_45,sG.h_90]}>
+                                            <View key={item.id} style={[sG.ai_center,sG.jc_center,sG.h_90]}>
                                                 <SecondCard
                                                 loading={props.loading}
                                                 image={item.referencia.foto}

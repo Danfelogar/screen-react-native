@@ -10,7 +10,7 @@ import { DetailsTemplates } from "../../templates/details/details";
 
 export default class Details extends Component {
     constructor(props) {
-        super(props);    
+        super(props);
         this.state = {
             loading:true,
             productId:'',
@@ -27,7 +27,9 @@ export default class Details extends Component {
         };
     }
 
-    getDetails = async(productId) => {
+    getDetails = async() => {
+        //capturar id
+        const productId = this.props.navigation.getParam('productId');
         // this.setState({loading:true})
         try {
             let data = {
@@ -35,9 +37,9 @@ export default class Details extends Component {
             }
             let response= await asyncSendApis('/api-referencias/referenciassearch/'+productId+'/', data);
             if (response.status) {
-                console.log(response);
+                // console.log(response);
                 this.setState({
-                    id:response.id,
+                    id:productId,
                     name:response.nombre,
                     price:response.precio,
                     mainName:response.referencia.nombre,
@@ -59,15 +61,14 @@ export default class Details extends Component {
         }
     }
 
-    getDataNavegation = () =>{
-        const productId = this.props.navigation.getParam('productId');
-        console.log(productId) 
-        this.getDetails(productId)
-  
-    }
+    // getDataNavegation = () =>{
+    //     const productId = this.props.navigation.getParam('productId');
+    //     console.log(productId)
+    //     this.getDetails(productId)
+    // }
 
     componentDidMount(){
-        this.getDataNavegation();
+        this.getDetails();
         // this.getDetails();
     }
 
